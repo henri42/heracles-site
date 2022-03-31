@@ -1,0 +1,29 @@
+.root {
+    display: flex;
+    align-items: baseline;
+
+    *:first-child {
+        margin-right: 1rem;
+    }
+
+    a {
+        padding: .2rem .4rem;
+    }
+
+    .stakeLink {
+        color: black;
+        text-decoration: none;
+
+        border: 2px solid black;
+        border-radius: 4px;
+        white-space: nowrap;
+        cursor: pointer;
+
+        &:hover {
+            color: white;
+            background-color: black;
+        }
+
+        transition: all .1s;
+    }
+}

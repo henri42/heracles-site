@@ -1,0 +1,18 @@
+.root {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .info {
+        img {
+            display: block;
+            max-height: 2.5rem;
+            margin: 1.5rem 0;
+        }
+    }
+
+    .picture {
+        display: block;
+        max-width: 25rem;
+    }
+}

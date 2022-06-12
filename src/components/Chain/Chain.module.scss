@@ -4,10 +4,44 @@
     align-items: flex-end;
 
     .info {
-        img {
-            display: block;
-            max-height: 2.5rem;
-            margin: 1.5rem 0;
+        .title {
+            margin: 0;
+            font-style: italic;
+        }
+
+        .description {
+            margin: 0;
+            margin-top: 0.8rem;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+
+            > * {
+                &:not(&:first-child) {
+                    margin-left: 1.6rem;
+                }
+            }
+
+            img {
+                display: block;
+                max-height: 2rem;
+                margin: 1.6rem 0;
+            }
+
+            .livePill {
+                color: #91e691;
+                border: 2px solid #91e691;
+                border-radius: 0.4rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .aprPill {
+                border: 2px solid;
+                border-radius: 0.4rem;
+                padding: 0.3rem 0.6rem;
+            }
         }
     }
 
@@ -15,4 +49,9 @@
         display: block;
         max-width: 25rem;
     }
+}
+
+.details {
+    margin-top: 3.2rem;
+    text-align: justify;
 }

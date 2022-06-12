@@ -6,7 +6,7 @@ import Separator from '../Separator/Separator'
 import NemeanLion from '../../assets/lion.svg'
 import TernoaLogo from '../../assets/ternoa.svg'
 
-const TernoaAddress = '5Hpd4Z7Nb5jPSGGkGoUtypsBstv7CnUTW2hgLP1uqZnVLA9r'
+const TernoaAddress = '5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8'
 
 const Main = () => <main className={classes.root}>
         <Separator />

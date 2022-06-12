@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Snail from '../../assets/snail.svg'
 import classes from "./Stake.module.scss";
 
 interface IconProps {
@@ -37,6 +38,13 @@ const CopyPaste = ({ className }: IconProps) => (
   </svg>
 );
 
+const middleEllipsis = (s: string, n = 10): string => {
+    if (s.length < n) return s
+    const start = s.slice(0, n / 2)
+    const end = s.slice(-(n / 2))
+    return start + '...' + end
+  }
+
 const Stake = ({ address }: Props) => {
   const [isCopyIndicator, setIsCopyIndicator] = useState(false);
 
@@ -59,12 +67,12 @@ const Stake = ({ address }: Props) => {
           setIsCopyIndicator(true);
         }}
       >
-        {address}
+        {middleEllipsis(address, 20)}
         <div>
           {isCopyIndicator ? (
             <CheckMark className={classes.checkMarkIcon} />
           ) : (
-            <CopyPaste className={classes.copyPasteIcon} />
+            <img className={classes.checkMarkIcon} src={Snail} alt="greek pattern" />
           )}
         </div>
       </button>

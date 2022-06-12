@@ -26,7 +26,6 @@ const Chain = ({
                 <div className={classes.logos}>
                     <img src={chainLogo} alt={chain} />
                     <div className={classes.livePill}>Live</div>
-                    <div className={classes.aprPill}>APR: 15,7%</div>
                 </div>
             </div>
             <img className={classes.picture} src={picture} alt={`illustration of ${name}`} />

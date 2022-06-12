@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1440px;
+
+@mixin xs() {
+  @media screen and (min-width: $breakpoint-xs) {
+    @content;
+  }
+}
+
+@mixin sm() {
+  @media screen and (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md() {
+  @media screen and (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg() {
+  @media screen and (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl() {
+  @media screen and (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl() {
+  @media screen and (min-width: $breakpoint-xxl) {
+    @content;
+  }
+}

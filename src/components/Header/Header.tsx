@@ -1,3 +1,4 @@
+import Separator from '../Separator/Separator'
 import classes from './Header.module.scss'
 
 const Header = () => 
@@ -7,6 +8,7 @@ const Header = () =>
         <p>
             Little intro about Heracles validator nodes.
         </p>
+        <Separator />
     </header>
 
 export default Header

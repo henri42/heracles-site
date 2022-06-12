@@ -19,13 +19,16 @@ const Chain = ({
     picture
 }: Props) => 
     <section className={classes.root}>
-        <div className={classes.info}>
-            <h3># {name}</h3>
-            <p>{description}</p>
-            <img src={chainLogo} alt={chain} />
-            <Stake address={chainAddress}/>
+        <div className={classes.banner}>
+            <div className={classes.info}>
+                <h3># {name}</h3>
+                <p>{description}</p>
+                <img src={chainLogo} alt={chain} />
+            </div>
+            <img className={classes.picture} src={picture} alt={`illustration of ${name}`} />
         </div>
-        <img className={classes.picture} src={picture} alt={`illustration of ${name}`} />
+        <p>Highly reliable and secure infrastructure / Live and monitored 24-7 / Team of engineers and devops</p>
+        <Stake address={chainAddress} />
     </section>
 
 export default Chain

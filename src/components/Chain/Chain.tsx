@@ -21,7 +21,7 @@ const Chain = ({
     <section className={classes.root}>
         <div className={classes.banner}>
             <div className={classes.info}>
-                <h3># {name}</h3>
+                <h3>1. {name}</h3>
                 <p>{description}</p>
                 <img src={chainLogo} alt={chain} />
             </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Snail from '../../assets/snail.svg'
+import Snail from "../../assets/snail.svg";
 import classes from "./Stake.module.scss";
 
 interface IconProps {
@@ -39,11 +39,11 @@ const CopyPaste = ({ className }: IconProps) => (
 );
 
 const middleEllipsis = (s: string, n = 10): string => {
-    if (s.length < n) return s
-    const start = s.slice(0, n / 2)
-    const end = s.slice(-(n / 2))
-    return start + '...' + end
-  }
+  if (s.length < n) return s;
+  const start = s.slice(0, n / 2);
+  const end = s.slice(-(n / 2));
+  return start + "..." + end;
+};
 
 const Stake = ({ address }: Props) => {
   const [isCopyIndicator, setIsCopyIndicator] = useState(false);
@@ -51,15 +51,23 @@ const Stake = ({ address }: Props) => {
   useEffect(() => {
     if (isCopyIndicator) {
       const timer = setTimeout(() => {
-        setIsCopyIndicator(false)
-      }, 1500)
-      return () => clearTimeout(timer)
+        setIsCopyIndicator(false);
+      }, 1500);
+      return () => clearTimeout(timer);
     }
-  }, [isCopyIndicator])
+  }, [isCopyIndicator]);
 
   return (
     <div className={classes.root}>
-      <button className={classes.stakeLink}>Stake CAPS</button>
+      <a
+        className={classes.stakeLink}
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fmainnet.ternoa.network#/staking/query/5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Heracles node stats"
+      >
+        Stake CAPS
+      </a>
       <button
         className={classes.address}
         onClick={() => {
@@ -70,9 +78,16 @@ const Stake = ({ address }: Props) => {
         {middleEllipsis(address, 20)}
         <div>
           {isCopyIndicator ? (
-            <CheckMark className={classes.checkMarkIcon} />
+            <div className={classes.check}>
+              <CheckMark className={classes.checkMarkIcon} />
+              <span className={classes.checkLabel}>Copied !</span>
+            </div>
           ) : (
-            <img className={classes.checkMarkIcon} src={Snail} alt="greek pattern" />
+            <img
+              className={classes.checkMarkIcon}
+              src={Snail}
+              alt="greek pattern"
+            />
           )}
         </div>
       </button>

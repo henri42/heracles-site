@@ -1,10 +1,12 @@
-import Separator from '../Separator/Separator'
 import classes from './Header.module.scss'
 
-const Header = () => 
+type Props = {
+    pageName: string;
+};
+
+const Header = ({ pageName }: Props) => 
     <header className={classes.root}>
-        <h1>12 Labors of Heracles</h1>
-        <h2>Proof of Stake validator nodes</h2>
+        {pageName}
     </header>
 
 export default Header

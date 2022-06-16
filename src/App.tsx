@@ -1,14 +1,16 @@
-import Main from './components/Main/Main'
-import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
+import Header from './components/Header/Header'
+
+import Home from './pages/Home/Home'
 
 import classes from './App.module.scss'
 
+
 const App = () => 
   <div className={classes.root}>
+    <Header pageName='CAPS staking calculator'/>
     <div className={classes.container}>
-      <Header />
-      <Main />
+      <Home />
     </div>
     <Footer />
   </div>

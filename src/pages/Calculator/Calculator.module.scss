@@ -1,0 +1,38 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+        text-align: center;
+        line-height: 2.5rem;
+        padding: 0 4rem;
+    }
+
+    img {
+        max-height: 2rem;
+        margin-bottom: -0.5rem;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        margin: 4rem 0;
+
+        label {
+            font-size: .8rem;
+            margin-bottom: .2rem;
+        }
+        
+        input {
+            width: 100%;
+            font-size: larger;
+            border-radius: .4rem;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
+            "Courier New", monospace;
+        }
+    }
+}

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { middleEllipsis } from '../../utils/string'
 import Snail from "../../assets/snail.svg";
 import classes from "./Stake.module.scss";
+import { actions } from "../../redux/app/actions";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface IconProps {
   className?: string;
@@ -28,24 +31,8 @@ const CheckMark = ({ className }: IconProps) => (
   </svg>
 );
 
-const CopyPaste = ({ className }: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    viewBox="0 0 24 24"
-  >
-    <path d="M22 6v16H6V6h16zm2-2H4v20h20V4zM0 21V0h21v2H2v19H0z"></path>
-  </svg>
-);
-
-const middleEllipsis = (s: string, n = 10): string => {
-  if (s.length < n) return s;
-  const start = s.slice(0, n / 2);
-  const end = s.slice(-(n / 2));
-  return start + "..." + end;
-};
-
 const Stake = ({ address }: Props) => {
+  const dispatch = useAppDispatch()
   const [isCopyIndicator, setIsCopyIndicator] = useState(false);
 
   useEffect(() => {
@@ -59,15 +46,14 @@ const Stake = ({ address }: Props) => {
 
   return (
     <div className={classes.root}>
-      <a
+      <button
         className={classes.stakeLink}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fmainnet.ternoa.network#/staking/query/5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8"
-        target="_blank"
-        rel="noopener noreferrer"
-        title="Heracles node stats"
+        onClick={() => {
+          dispatch(actions.setIsWalletModalOpen(true))
+        }}
       >
         Stake CAPS
-      </a>
+      </button>
       <button
         className={classes.address}
         onClick={() => {

@@ -114,7 +114,7 @@ const Calculator = () => {
             )}
             <p>
               {isNominating
-                ? "Heracles thank you for your nomination and support 🌟"
+                ? "Heracles thanks you for your nomination and support 🌟"
                 : "If you like this calculator, support HERACLES as a nominator 💪"}
             </p>
           </div>

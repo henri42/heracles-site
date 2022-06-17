@@ -4,15 +4,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: stretch;
 
     h2 {
         text-align: center;
         line-height: 2.5rem;
-
-
-        @include md {
-            padding: 0 4rem;
-        }
+        max-width: 460px;
+        margin: auto;     
     }
 
     img {
@@ -25,7 +23,13 @@
         flex-direction: column;
         align-items: stretch;
 
-        margin: 4rem 0rem 2rem;
+        margin: 2rem 0;
+        max-width: 553px;
+
+        @include sm {
+            min-width: 553px;
+            margin: 2rem auto;
+        }
 
         label {
             font-size: 0.8rem;
@@ -41,10 +45,8 @@
                 "Courier New", monospace;
         }
 
-        padding: 0 1rem;
-
         @include sm {
-            padding: 0;
+            margin-top: 4rem;
         }
     }
 
@@ -82,12 +84,17 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        margin: 64px 0;
+        margin: 2rem 0 1rem;
         text-align: center;
 
         .rewards {
+            margin: 1rem 0;
             font-size: 2rem;
             font-weight: bold;
+        }
+
+        .thanks {
+            color: grey;
         }
 
         button {

@@ -75,8 +75,7 @@ const Calculator = () => {
   return (
     <main className={classes.root}>
       <h2>
-        Calculate your staking rewards <br />
-        on <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
+        Calculate your staking rewards on <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
       </h2>
       <div className={classes.input}>
         <label htmlFor="">Enter your nominator account address</label>
@@ -112,7 +111,7 @@ const Calculator = () => {
             {rewardsData.firstTimestamp !== "no date" && (
               <p>since {dayjs(rewardsData.firstTimestamp).format("ll")}</p>
             )}
-            <p>
+            <p className={classes.thanks}>
               {isNominating
                 ? "Heracles thanks you for your nomination and support 🌟"
                 : "If you like this calculator, support HERACLES as a nominator 💪"}

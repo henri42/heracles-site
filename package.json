@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@polkadot/api": "^8.8.2",
     "bn.js": "^5.2.1",
     "dayjs": "^1.11.3",
     "graphql-request": "^4.3.0",

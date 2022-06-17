@@ -1,101 +1,113 @@
+@import "../../index.scss";
+
 .root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  h2 {
-    text-align: center;
-    line-height: 2.5rem;
-    padding: 0 4rem;
-  }
-
-  img {
-    max-height: 2rem;
-    margin-bottom: -0.5rem;
-  }
-
-  .input {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    justify-content: center;
 
-    margin: 4rem 0 2rem;
+    h2 {
+        text-align: center;
+        line-height: 2.5rem;
 
-    label {
-      font-size: 0.8rem;
-      margin-bottom: 0.2rem;
+
+        @include md {
+            padding: 0 4rem;
+        }
     }
 
-    input {
-      width: 100%;
-      font-size: larger;
-      border-radius: 0.4rem;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
-        "Courier New", monospace;
-    }
-  }
-
-  .error {
-    margin: 12px auto 0;
-  }
-
-  .button {
-    background: black;
-    margin: 0;
-    color: white;
-    font-size: 16px;
-    text-decoration: none;
-
-    padding: 0.3rem 0.6rem;
-
-    border: 2px solid white;
-    border-radius: 0.4rem;
-    white-space: nowrap;
-    cursor: pointer;
-    max-width: 120px;
-    margin: 0 auto;
-
-    &:hover {
-      color: black;
-      background-color: white;
-      border-color: black;
+    img {
+        max-height: 2rem;
+        margin-bottom: -0.5rem;
     }
 
-    transition: all 0.1s;
-  }
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
 
-  .rewardsBox {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 64px;
-    text-align: center;
+        margin: 4rem 0rem 2rem;
 
-    .rewards {
-      font-size: 2rem;
-      font-weight: bold;
+        label {
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        input {
+            width: 100%;
+            font-size: larger;
+            border-radius: 0.4rem;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
+                "Courier New", monospace;
+        }
+
+        padding: 0 1rem;
+
+        @include sm {
+            padding: 0;
+        }
     }
 
-    button {
-      background: black;
-      color: white;
-      font-size: 16px;
-      text-decoration: none;
-      border: 1px solid white;
-
-      border-radius: 0.4rem;
-      padding: 0.3rem 0.6rem;
-
-      cursor: pointer;
-
-      &:hover {
-        color: black;
-        background-color: white;
-        border-color: black;
-      }
-
-      transition: all 0.1s;
+    .error {
+        margin: 12px auto 0;
     }
-  }
+
+    .button {
+        background: black;
+        margin: 0;
+        color: white;
+        font-size: 16px;
+        text-decoration: none;
+
+        padding: 0.3rem 0.6rem;
+
+        border: 2px solid white;
+        border-radius: 0.4rem;
+        white-space: nowrap;
+        cursor: pointer;
+        max-width: 120px;
+        margin: 0 auto;
+
+        &:hover {
+            color: black;
+            background-color: white;
+            border-color: black;
+        }
+
+        transition: all 0.1s;
+    }
+
+    .rewardsBox {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 64px 0;
+        text-align: center;
+
+        .rewards {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        button {
+            background: black;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border: 1px solid white;
+
+            border-radius: 0.4rem;
+            padding: 0.3rem 0.6rem;
+
+            cursor: pointer;
+
+            &:hover {
+                color: black;
+                background-color: white;
+                border-color: black;
+            }
+
+            transition: all 0.1s;
+        }
+    }
 }

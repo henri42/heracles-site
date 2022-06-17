@@ -1,8 +1,13 @@
+@import "index.scss";
+
 .root {
     .container {
         margin: auto;
         max-width: 1280px;
-        padding: 2rem 4rem;
+
+        @include md {
+            padding: 2rem 4rem;
+        }
     }
 
     display: flex;

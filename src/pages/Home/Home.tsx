@@ -6,8 +6,9 @@ import Separator from '../../components/Separator/Separator'
 import NemeanLion from '../../assets/lion.svg'
 import TernoaLogo from '../../assets/ternoa.svg'
 import Banner from '../../components/Banner/Banner'
+import { HERACLES_NODE_ADDRESS } from '../../constants'
 
-const TernoaAddress = '5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8'
+
 
 const Home = () => <main className={classes.root}>
         <Banner />
@@ -25,7 +26,7 @@ const Home = () => <main className={classes.root}>
             description='Validator node on the Ternoa mainnet'
             chain='Ternoa'
             chainLogo={TernoaLogo}
-            chainAddress={TernoaAddress}
+            chainAddress={HERACLES_NODE_ADDRESS}
             picture={NemeanLion}
         />
         <p className={classes.teasing}>More nodes are coming...</p>

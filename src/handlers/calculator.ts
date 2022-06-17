@@ -1,6 +1,6 @@
 import BN from "bn.js";
 import { gql, request } from "graphql-request";
-import { isValidAddress } from "ternoa-js/blockchain";
+import { initializeApi, isValidAddress, query } from "ternoa-js/blockchain";
 
 export interface IEvent {
   argsValue: string[];
@@ -11,6 +11,7 @@ export interface IEvent {
 
 export interface IEventsResponse {
   events: {
+    totalCount: number
     nodes: IEvent[];
   };
 }
@@ -41,6 +42,7 @@ export const queryRewardedEvents = (address: string) => gql`
       ]
     }
   ) {
+    totalCount
     nodes {
       argsValue
       block {
@@ -54,16 +56,17 @@ export const queryRewardedEvents = (address: string) => gql`
 export const getRewardsData = async (
   address: string
 ): Promise<{ firstTimestamp: string; total: string }> => {
-  if (!isValidAddress(address)) throw new Error('Invalid Ternoa address', {
-    cause: new Error('Invalid address'),
-  });
+  if (!isValidAddress(address))
+    throw new Error("Invalid Ternoa address", {
+      cause: new Error("Invalid address"),
+    });
 
   const { events }: IEventsResponse = await apiDictionary(
     queryRewardedEvents(address)
   );
 
-  const { nodes } = events;
-  if (nodes.length === 0) return { firstTimestamp: "no date", total: "0" };
+  const { nodes, totalCount } = events;
+  if (totalCount === 0) return { firstTimestamp: "no date", total: "0" };
 
   const firstTimestamp = nodes[0].block.timestamp;
   let counter = new BN(0);
@@ -75,4 +78,14 @@ export const getRewardsData = async (
     firstTimestamp,
     total: formatBalance(counter.toString()),
   };
+};
+
+export const isNominatingValidator = async (address: string, validatorAddress: string): Promise<boolean> => {
+  await initializeApi("wss://mainnet.ternoa.network");
+  const res = await query("staking", "nominators", [address]);
+  if (res.toJSON() === null) throw new Error("Invalid nominator address", {
+    cause: new Error("Invalid nominator address"),
+  });
+  const { targets } = res.toJSON() as { submittedIn: number, targets: string[] };
+  return targets.includes(validatorAddress);
 };

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+
 import Snail from "../../assets/snail.svg";
+import { HERACLES_NODE_ADDRESS } from '../../constants'
+
 import classes from "./Stake.module.scss";
 
 interface IconProps {
@@ -61,7 +64,7 @@ const Stake = ({ address }: Props) => {
     <div className={classes.root}>
       <a
         className={classes.stakeLink}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fmainnet.ternoa.network#/staking/query/5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8"
+        href={`https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fmainnet.ternoa.network#/staking/query/${HERACLES_NODE_ADDRESS}`}
         target="_blank"
         rel="noopener noreferrer"
         title="Heracles node stats"

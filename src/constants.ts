@@ -1,0 +1,1 @@
+export const HERACLES_NODE_ADDRESS = '5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8'

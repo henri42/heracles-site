@@ -2,6 +2,14 @@
     color: white;
     background: black;
     padding: .2rem;
+
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 1rem;
+        margin: 0 .5rem;
+    }
     
     a {
         color: white;

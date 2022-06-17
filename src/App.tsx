@@ -6,15 +6,16 @@ import Calculator from './pages/Calculator/Calculator'
 
 import classes from './App.module.scss'
 
-
-const App = () => 
-  <div className={classes.root}>
+const App = () => {
+  const subdomain = window.location.host.split(".")[0]
+  return <div className={classes.root}>
     <Header pageName='Ternoa Staking Rewards Calculator'/>
     <div className={classes.container}>
-      {/* <Home /> */}
-      <Calculator />
+      {(subdomain === 'calculator') ? <Calculator /> : <Home />}
     </div>
     <Footer />
   </div>
+}
+
 
 export default App

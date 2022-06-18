@@ -18,8 +18,13 @@
     }
 
     img {
-        max-height: 3.2rem;
-        margin-bottom: -0.8rem;
+        max-height: 3rem;
+        margin-bottom: -0.6rem;
+
+        @include sm {
+            max-height: 3.2rem;
+            margin-bottom: -0.8rem;
+        }
     }
 
     .input {

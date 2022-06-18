@@ -66,8 +66,12 @@
       top: 0;
 
       .checkLabel {
-        margin-left: 28px;
-        white-space: nowrap;
+        display: none;
+
+        @include md {
+          margin-left: 28px;
+          white-space: nowrap;
+        }
       }
     }
   }

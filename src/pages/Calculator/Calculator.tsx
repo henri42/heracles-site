@@ -78,14 +78,15 @@ const Calculator = () => {
         Calculate your staking rewards on <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
       </h2>
       <div className={classes.input}>
-        <label htmlFor="">Enter your nominator account address</label>
         <input
+        className={classes.input}
           onChange={(e) => setAddress(e.target.value)}
           onKeyUp={(e) => {
             if (e.key === "Enter" || e.code === "13") {
               onClick();
             }
           }}
+          placeholder="Enter your address"
           type="text"
         />
         {error !== "" && <div className={classes.error}>{error}</div>}

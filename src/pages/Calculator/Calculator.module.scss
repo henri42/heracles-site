@@ -8,45 +8,42 @@
 
     h2 {
         text-align: center;
-        line-height: 2.5rem;
+        line-height: 4rem;
         max-width: 460px;
-        margin: auto;     
+        margin: auto;
+        font-size: 2.4rem;
     }
 
     img {
-        max-height: 2rem;
-        margin-bottom: -0.5rem;
+        max-height: 3.2rem;
+        margin-bottom: -0.8rem;
     }
 
     .input {
         display: flex;
         flex-direction: column;
         align-items: stretch;
-
-        margin: 2rem 0;
-        max-width: 553px;
+        margin: 2.4rem 0;
 
         @include sm {
-            min-width: 553px;
-            margin: 2rem auto;
-        }
-
-        label {
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
+            margin: 2.4rem auto;
         }
 
         input {
-            width: 100%;
             font-size: larger;
             border-radius: 0.4rem;
             border: 1px solid rgba(0, 0, 0, 0.2);
             font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
                 "Courier New", monospace;
+
+                &::placeholder {
+                    font-size: 1.6rem;
+                }
         }
 
         @include sm {
             margin-top: 4rem;
+            min-width: 48rem;
         }
     }
 
@@ -62,13 +59,13 @@
         font-size: 16px;
         text-decoration: none;
 
-        padding: 0.3rem 0.6rem;
+        padding: 0.4rem 0.8rem;
 
         border: 2px solid white;
-        border-radius: 0.4rem;
+        border-radius: 0.8rem;
         white-space: nowrap;
         cursor: pointer;
-        max-width: 120px;
+        max-width: 12rem;
         margin: 0 auto;
 
         &:hover {
@@ -84,12 +81,12 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        margin: 2rem 0 1rem;
+        margin: 2.4rem 0 1.2rem;
         text-align: center;
 
         .rewards {
-            margin: 1rem 0;
-            font-size: 2rem;
+            margin: 1.2rem 0;
+            font-size: 2.4rem;
             font-weight: bold;
         }
 

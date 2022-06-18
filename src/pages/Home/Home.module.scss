@@ -1,10 +1,26 @@
-.root {
-    .intro {
-        max-width: 1000px;
-        text-align: center;
-    }
+@import "../../index.scss";
 
-    .teasing {
-        margin-top: 40px;
+.root {
+  .title {
+    text-align: center;
+    font-size: 3.2rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+
+  .intro {
+    max-width: 1080px;
+    text-align: center;
+  }
+
+  .teasing {
+    margin-top: 6.4rem;
+
+    @include lg {
+      margin-top: 4rem;
     }
+  }
 }

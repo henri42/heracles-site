@@ -45,12 +45,13 @@
   .address {
     position: relative;
     background: transparent;
+    color: black;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     margin: 0;
-    margin-top: 0.8rem;
+    margin-top: 1.2rem;
 
     .checkMarkIcon,
     .copyPasteIcon {

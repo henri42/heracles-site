@@ -24,11 +24,11 @@ const Chain = ({
                 <h3 className={classes.title}>1. {name}</h3>
                 <p className={classes.description}>{description}</p>
                 <div className={classes.logos}>
-                    <img src={chainLogo} alt={chain} />
+                    <img src={chainLogo} alt={chain} width={113} height={30} />
                     <div className={classes.livePill}>Live</div>
                 </div>
             </div>
-            <img className={classes.picture} src={picture} alt={`illustration of ${name}`} />
+            <img className={classes.picture} src={picture} alt={`illustration of ${name}`} width={320} height={131} />
         </div>
         <p className={classes.details}>Highly reliable and secure infrastructure / Live and monitored 24-7 / Team of engineers and devops</p>
         <Stake address={chainAddress} />

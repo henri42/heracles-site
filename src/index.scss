@@ -69,3 +69,13 @@ $breakpoint-xxl: 1440px;
     @content;
   }
 }
+
+.container {
+  margin: auto;
+  max-width: 1280px;
+  padding: 0 2.4rem;
+
+  @include lg {
+    padding: 2.4rem 6.4rem;
+  }
+}

@@ -1,18 +1,37 @@
 .root {
-    color: white;
-    background: black;
-    padding: .2rem .4rem;
-    margin-bottom: 2rem;
+  color: white;
+  background: black;
+  padding: 0.2rem 0.4rem;
+  margin-bottom: 2.4rem;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    .icon {
+      height: 1.6rem;
+      margin: 0 0.8rem;
+    }
+  }
+
+  .right {
     display: flex;
     align-items: center;
 
-    img {
-        height: 1.6rem;
-        margin: 0 0.8rem;
+    .navLink {
+      color: white;
+      text-decoration: underline;
     }
-    
-    a {
-        color: white;
+
+    > * {
+      &:not(:first-child) {
+        margin-left: 0.8rem;
+      }
     }
+  }
 }

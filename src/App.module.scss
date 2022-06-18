@@ -1,16 +1,6 @@
 @import "index.scss";
 
 .root {
-  .container {
-    margin: auto;
-    max-width: 1280px;
-    padding: 0 2.4rem;
-
-    @include lg {
-      padding: 2.4rem 6.4rem;
-    }
-  }
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;

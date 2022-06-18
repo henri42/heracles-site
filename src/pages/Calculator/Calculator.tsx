@@ -3,7 +3,9 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
+import CalculatorIcon from "../../assets/calculator.svg";
 import TernoaLogo from "../../assets/ternoa.svg";
+import Header from "../../components/Header/Header";
 import { HERACLES_NODE_ADDRESS } from "../../constants";
 import {
   getRewardsData,
@@ -73,54 +75,79 @@ const Calculator = () => {
   };
 
   return (
-    <main className={classes.root}>
-      <h2>
-        Calculate your staking rewards on <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
-      </h2>
-      <div className={classes.input}>
-        <input
-        className={classes.input}
-          onChange={(e) => setAddress(e.target.value)}
-          onKeyUp={(e) => {
-            if (e.key === "Enter" || e.code === "13") {
-              onClick();
-            }
-          }}
-          placeholder="Enter your address"
-          type="text"
-        />
-        {error !== "" && <div className={classes.error}>{error}</div>}
-      </div>
-      <button className={classes.button} disabled={isLoading} onClick={onClick}>
-        {isLoading ? "Loading..." : error !== "" ? "Try again" : "Tell me !"}
-      </button>
-      {!isLoading && rewardsData !== undefined && error === "" && (
-        <section className={classes.rewardsBox}>
-          <div>
-            {Number(rewardsData.total) > 0 ? (
-              <>
-                <p>You have earned</p>
-                <p className={classes.rewards}>
-                  🏺 {formatPrice(Number(rewardsData.total), {})} CAPS
-                </p>
-              </>
-            ) : (
-              <p>
-                Your nomination will be active in 2 eras; try again tomorrow.
-              </p>
-            )}
-            {rewardsData.firstTimestamp !== "no date" && (
-              <p>since {dayjs(rewardsData.firstTimestamp).format("ll")}</p>
-            )}
-            <p className={classes.thanks}>
-              {isNominating
-                ? "Heracles thanks you for your nomination and support 🌟"
-                : "If you like this calculator, support HERACLES as a nominator 💪"}
-            </p>
+    <>
+      <Header
+        pageName="Ternoa Staking Rewards Calculator"
+        icon={CalculatorIcon}
+        navLinks={[
+          {
+            label: "Heracles ▸",
+            title: "Heracles homepage",
+            uri: "https://heracles.works",
+          },
+        ]}
+      />
+      <div className={classes.container}>
+        <main className={classes.root}>
+          <h2>
+            Calculate your staking rewards on{" "}
+            <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
+          </h2>
+          <div className={classes.input}>
+            <input
+              className={classes.input}
+              onChange={(e) => setAddress(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter" || e.code === "13") {
+                  onClick();
+                }
+              }}
+              placeholder="Enter your address"
+              type="text"
+            />
+            {error !== "" && <div className={classes.error}>{error}</div>}
           </div>
-        </section>
-      )}
-    </main>
+          <button
+            className={classes.button}
+            disabled={isLoading}
+            onClick={onClick}
+          >
+            {isLoading
+              ? "Loading..."
+              : error !== ""
+              ? "Try again"
+              : "Tell me !"}
+          </button>
+          {!isLoading && rewardsData !== undefined && error === "" && (
+            <section className={classes.rewardsBox}>
+              <div>
+                {Number(rewardsData.total) > 0 ? (
+                  <>
+                    <p>You have earned</p>
+                    <p className={classes.rewards}>
+                      🏺 {formatPrice(Number(rewardsData.total), {})} CAPS
+                    </p>
+                  </>
+                ) : (
+                  <p>
+                    Your nomination will be active in 2 eras; try again
+                    tomorrow.
+                  </p>
+                )}
+                {rewardsData.firstTimestamp !== "no date" && (
+                  <p>since {dayjs(rewardsData.firstTimestamp).format("ll")}</p>
+                )}
+                <p className={classes.thanks}>
+                  {isNominating
+                    ? "Heracles thanks you for your nomination and support 🌟"
+                    : "If you like this calculator, support HERACLES as a nominator 💪"}
+                </p>
+              </div>
+            </section>
+          )}
+        </main>
+      </div>
+    </>
   );
 };
 

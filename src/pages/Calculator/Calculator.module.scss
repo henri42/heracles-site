@@ -1,126 +1,130 @@
 @import "../../index.scss";
 
 .root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+
+  h2 {
+    text-align: center;
+    line-height: 4rem;
+    margin: 0 auto;
+    font-size: 2.4rem;
+
+    @include sm {
+      max-width: 460px;
+    }
+  }
+
+  img {
+    max-height: 3rem;
+    margin-bottom: -0.6rem;
+
+    @include sm {
+      max-height: 3.2rem;
+      margin-bottom: -0.8rem;
+    }
+  }
+
+  .input {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: stretch;
+    margin: 2.4rem 0;
 
-    h2 {
-        text-align: center;
-        line-height: 4rem;
-        margin: 0 auto;
-        font-size: 2.4rem;
-
-        @include sm {
-            max-width: 460px;
-        }
+    @include sm {
+      margin: 2.4rem auto;
     }
 
-    img {
-        max-height: 3rem;
-        margin-bottom: -0.6rem;
+    input {
+      font-size: larger;
+      border-radius: 0.4rem;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
+        "Courier New", monospace;
 
-        @include sm {
-            max-height: 3.2rem;
-            margin-bottom: -0.8rem;
-        }
+      &::placeholder {
+        font-size: 1.6rem;
+      }
     }
 
-    .input {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        margin: 2.4rem 0;
+    @include sm {
+      margin-top: 4rem;
+      min-width: 48rem;
+    }
+  }
 
-        @include sm {
-            margin: 2.4rem auto;
-        }
+  .error {
+    margin: 12px auto 0;
+    text-align: center;
+  }
 
-        input {
-            font-size: larger;
-            border-radius: 0.4rem;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
-                "Courier New", monospace;
+  .button {
+    background: black;
+    margin: 0;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
 
-                &::placeholder {
-                    font-size: 1.6rem;
-                }
-        }
+    padding: 0.4rem 0.8rem;
 
-        @include sm {
-            margin-top: 4rem;
-            min-width: 48rem;
-        }
+    border: 2px solid white;
+    border-radius: 0.8rem;
+    white-space: nowrap;
+    cursor: pointer;
+    max-width: 12rem;
+    margin: 0 auto;
+
+    &:hover {
+      color: black;
+      background-color: white;
+      border-color: black;
     }
 
-    .error {
-        margin: 12px auto 0;
-        text-align: center;
+    transition: all 0.1s;
+  }
+
+  .rewardsBox {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 2.4rem 0 1.2rem;
+    text-align: center;
+
+    .rewards {
+      margin: 1.2rem 0;
+      font-size: 2.4rem;
+      font-weight: bold;
     }
 
-    .button {
-        background: black;
-        margin: 0;
-        color: white;
-        font-size: 16px;
-        text-decoration: none;
-
-        padding: 0.4rem 0.8rem;
-
-        border: 2px solid white;
-        border-radius: 0.8rem;
-        white-space: nowrap;
-        cursor: pointer;
-        max-width: 12rem;
-        margin: 0 auto;
-
-        &:hover {
-            color: black;
-            background-color: white;
-            border-color: black;
-        }
-
-        transition: all 0.1s;
+    .apr {
+      font-weight: bold;
     }
 
-    .rewardsBox {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        margin: 2.4rem 0 1.2rem;
-        text-align: center;
-
-        .rewards {
-            margin: 1.2rem 0;
-            font-size: 2.4rem;
-            font-weight: bold;
-        }
-
-        .thanks {
-            color: grey;
-        }
-
-        button {
-            background: black;
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            border: 1px solid white;
-
-            border-radius: 0.4rem;
-            padding: 0.3rem 0.6rem;
-
-            cursor: pointer;
-
-            &:hover {
-                color: black;
-                background-color: white;
-                border-color: black;
-            }
-
-            transition: all 0.1s;
-        }
+    .thanks {
+      color: grey;
     }
+
+    button {
+      background: black;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      border: 1px solid white;
+
+      border-radius: 0.4rem;
+      padding: 0.3rem 0.6rem;
+
+      cursor: pointer;
+
+      &:hover {
+        color: black;
+        background-color: white;
+        border-color: black;
+      }
+
+      transition: all 0.1s;
+    }
+  }
 }

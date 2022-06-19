@@ -32,7 +32,7 @@ const Calculator = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isNominating, setIsNominating] = useState<boolean>(false);
   const [rewardsData, setRewardsData] = useState<
-    { firstTimestamp: string; total: string } | undefined
+    { eraApr?: string; firstTimestamp: string; total: string } | undefined
   >(undefined);
 
   const onClick = async () => {
@@ -136,6 +136,14 @@ const Calculator = () => {
                 )}
                 {rewardsData.firstTimestamp !== "no date" && (
                   <p>since {dayjs(rewardsData.firstTimestamp).format("ll")}</p>
+                )}
+                {rewardsData.eraApr && (
+                  <p>
+                    Your current APR:{" "}
+                    <span
+                      className={classes.apr}
+                    >{`~${rewardsData.eraApr}%`}</span>
+                  </p>
                 )}
                 <p className={classes.thanks}>
                   {isNominating

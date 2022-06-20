@@ -90,8 +90,7 @@ const Calculator = () => {
       <div className={classes.container}>
         <main className={classes.root}>
           <h2>
-            Calculate your staking rewards on{" "}
-            <img src={TernoaLogo} alt="Ternoa Logo" /> mainnet
+            Calculate your staking rewards on Ternoa mainnet
           </h2>
           <div className={classes.input}>
             <input

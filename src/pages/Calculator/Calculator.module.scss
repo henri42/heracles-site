@@ -49,9 +49,16 @@
       }
     }
 
+    @include xs {
+      min-width: 40rem;
+    }
+
     @include sm {
-      margin-top: 4rem;
       min-width: 48rem;
+    }
+
+    @include md {
+      min-width: 56rem;
     }
   }
 

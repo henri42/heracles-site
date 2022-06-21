@@ -75,6 +75,10 @@ $breakpoint-xxl: 1440px;
   max-width: 1280px;
   padding: 0 2.4rem;
 
+  @include sm {
+    padding: 2.4rem 12.8rem;
+  }
+
   @include lg {
     padding: 2.4rem 38.4rem;
   }

@@ -131,7 +131,6 @@ export const getEraAddressAPR = async (
     sessionEraPayout: string;
     sessionExtraRewardPayout: string;
   };
-  console.log({miscFrozen: miscFrozen.toString()})
   const eraTotalRewards = new BN(sessionExtraRewardPayout.substring(2), 'hex');
   return getAPR(miscFrozen, eraTotalRewards, eraTotalStake);
 };

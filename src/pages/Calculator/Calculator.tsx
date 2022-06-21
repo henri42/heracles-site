@@ -87,6 +87,7 @@ const Calculator = () => {
   return (
     <>
       <Header
+        pageNameXs="Calculator"
         pageName="Ternoa Staking Rewards Calculator"
         icon={CalculatorIcon}
         navLinks={[

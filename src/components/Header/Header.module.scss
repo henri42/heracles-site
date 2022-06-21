@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .root {
   color: white;
   background: black;
@@ -16,6 +18,20 @@
     .icon {
       height: 1.6rem;
       margin: 0 0.8rem;
+    }
+
+    .pageNameXs {
+      @include lg {
+        display: none;
+      }
+    }
+
+    .pageNameLg {
+      display: none;
+      
+      @include lg {
+        display: block;
+      }
     }
   }
 

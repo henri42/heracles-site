@@ -1,26 +1,50 @@
 @import "../../index.scss";
 
 .root {
+  text-align: center;
+
   .title {
-    text-align: center;
     font-size: 3.2rem;
   }
 
   .subtitle {
-    text-align: center;
     font-size: 2.4rem;
   }
 
   .intro {
     max-width: 1080px;
-    text-align: center;
+  }
+
+  .whyBox {
+    margin-top: 6.4rem;
+
+    .boxTitle {
+      font-style: italic;
+      margin-bottom: 3.2rem;
+    }
+  }
+
+  .nodesBox {
+    margin-top: 6.4rem;
+
+    .boxTitle {
+      font-style: italic;
+      margin-bottom: 3.2rem;
+    }
+
+    .node {
+      .picture {
+        margin: 1.6rem 0 0;
+    
+        @include lg {
+          max-width: 32rem;
+        }
+      }
+    }
   }
 
   .teasing {
-    margin-top: 6.4rem;
-
-    @include lg {
-      margin-top: 4rem;
-    }
+    font-style: italic;
+    margin: 4rem 0;
   }
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Snail from "../../assets/snail.svg";
-import { HERACLES_NODE_ADDRESS } from '../../constants'
+import { HERACLES_NODE_ADDRESS } from "../../constants";
 
 import classes from "./Stake.module.scss";
 
@@ -86,11 +85,7 @@ const Stake = ({ address }: Props) => {
               <span className={classes.checkLabel}>Copied !</span>
             </div>
           ) : (
-            <img
-              className={classes.checkMarkIcon}
-              src={Snail}
-              alt="greek pattern"
-            />
+            <CopyPaste className={classes.checkMarkIcon} />
           )}
         </div>
       </button>

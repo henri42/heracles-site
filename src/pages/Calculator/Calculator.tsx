@@ -10,7 +10,7 @@ import { HERACLES_NODE_ADDRESS } from "../../constants";
 import {
   getRewardsData,
   isNominatingValidator,
-} from "../../handlers/calculator";
+} from "../../helpers/calculator";
 
 import classes from "./Calculator.module.scss";
 

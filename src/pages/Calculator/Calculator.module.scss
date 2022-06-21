@@ -38,7 +38,6 @@
     }
 
     input {
-      font-size: larger;
       border-radius: 0.4rem;
       border: 1px solid rgba(0, 0, 0, 0.2);
       font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas,
@@ -55,10 +54,6 @@
 
     @include sm {
       min-width: 48rem;
-    }
-
-    @include md {
-      min-width: 56rem;
     }
   }
 

@@ -4,9 +4,11 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
 import CalculatorIcon from "../../assets/calculator.svg";
-import TernoaLogo from "../../assets/ternoa.svg";
 import Header from "../../components/Header/Header";
-import { HERACLES_NODE_ADDRESS } from "../../constants";
+import {
+  CURRENT_ACTIVE_VALIDATORS_ADDRESSES,
+  HERACLES_NODE_ADDRESS,
+} from "../../constants";
 import {
   getRewardsData,
   isNominatingValidator,
@@ -29,6 +31,7 @@ export const formatPrice = (
 const Calculator = () => {
   const [address, setAddress] = useState<string | undefined>(undefined);
   const [error, setError] = useState<React.ReactNode | string>("");
+  const [isHeraclesAddress, setIsHeraclesAddress] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isNominating, setIsNominating] = useState<boolean>(false);
   const [rewardsData, setRewardsData] = useState<
@@ -38,15 +41,22 @@ const Calculator = () => {
   const onClick = async () => {
     if (address !== undefined) {
       setError("");
+      setIsHeraclesAddress(false);
       setIsLoading(true);
+      setIsNominating(false);
       try {
         const res = await getRewardsData(address);
-        const isNominatingHeracles = await isNominatingValidator(
-          address,
-          HERACLES_NODE_ADDRESS
-        );
+        if (address === HERACLES_NODE_ADDRESS) setIsHeraclesAddress(true);
+        else if (CURRENT_ACTIVE_VALIDATORS_ADDRESSES.includes(address))
+          setIsNominating(false);
+        else {
+          const isNominatingHeracles = await isNominatingValidator(
+            address,
+            HERACLES_NODE_ADDRESS
+          );
+          setIsNominating(isNominatingHeracles);
+        }
         setRewardsData(res);
-        setIsNominating(isNominatingHeracles);
       } catch (error) {
         if (
           error instanceof Error &&
@@ -59,7 +69,7 @@ const Calculator = () => {
         ) {
           setError(
             <p>
-              Your are not an active nominator
+              You are not an active nominator
               <br />
               Stake your CAPS on HERACLES and earn daily rewards 🏺
             </p>
@@ -89,9 +99,7 @@ const Calculator = () => {
       />
       <div className={classes.container}>
         <main className={classes.root}>
-          <h2>
-            Calculate your staking rewards on Ternoa mainnet
-          </h2>
+          <h2>Calculate your staking rewards on Ternoa mainnet</h2>
           <div className={classes.input}>
             <input
               className={classes.input}
@@ -138,14 +146,16 @@ const Calculator = () => {
                 )}
                 {rewardsData.eraApr && (
                   <p>
-                    Your current APR:{" "}
+                    Your estimated current APR:{" "}
                     <span
                       className={classes.apr}
                     >{`~${rewardsData.eraApr}%`}</span>
                   </p>
                 )}
                 <p className={classes.thanks}>
-                  {isNominating
+                  {isHeraclesAddress
+                    ? "Welcome HERACLES 👑"
+                    : isNominating
                     ? "Heracles thanks you for your nomination and support 🌟"
                     : "If you like this calculator, support HERACLES as a nominator 💪"}
                 </p>

@@ -58,7 +58,7 @@ export const queryRewardedEvents = (address: string) => gql`
 
 export const getRewardsData = async (
   address: string
-): Promise<{ eraApr?: string, firstTimestamp: string; total: string }> => {
+): Promise<{ eraApr?: string; firstTimestamp: string; total: string }> => {
   if (!isValidAddress(address))
     throw new Error("Invalid Ternoa address", {
       cause: new Error("Invalid address"),
@@ -69,14 +69,18 @@ export const getRewardsData = async (
   );
 
   const { nodes, totalCount } = events;
-  if (totalCount === 0) return { eraApr: undefined, firstTimestamp: "no date", total: "0" };
+  if (totalCount === 0)
+    return { eraApr: undefined, firstTimestamp: "no date", total: "0" };
 
   const firstTimestamp = nodes[0].block.timestamp;
   let counter = new BN(0);
   nodes.forEach(
     ({ argsValue }) => (counter = counter.add(new BN(argsValue[1])))
   );
-  const eraApr = await getEraAddressAPR(address, CURRENT_ACTIVE_VALIDATORS_ADDRESSES)
+  const eraApr = await getEraAddressAPR(
+    address,
+    CURRENT_ACTIVE_VALIDATORS_ADDRESSES
+  );
 
   return {
     eraApr,
@@ -115,13 +119,15 @@ export const getEraAddressAPR = async (
   activeValidators: string[]
 ) => {
   const currentEra = (await query("staking", "currentEra")).toString();
-  const isNominatingActiveValidator = activeValidators.some(
-    (validatorAddress) => isNominatingValidator(address, validatorAddress)
-  );
-  if (!isNominatingActiveValidator)
-    throw new Error(
-      `Address ${address} is not nominating any active validator during the current era ${currentEra}`
+  if (!CURRENT_ACTIVE_VALIDATORS_ADDRESSES.includes(address)) {
+    const isNominatingActiveValidator = activeValidators.some(
+      (validatorAddress) => isNominatingValidator(address, validatorAddress)
     );
+    if (!isNominatingActiveValidator)
+      throw new Error(
+        `Address ${address} is not nominating any active validator during the current era ${currentEra}`
+      );
+  }
   const { miscFrozen } = await getBalances(address);
   const eraTotalStake = new BN(
     (await query("staking", "erasTotalStake", [currentEra])).toString()
@@ -131,6 +137,6 @@ export const getEraAddressAPR = async (
     sessionEraPayout: string;
     sessionExtraRewardPayout: string;
   };
-  const eraTotalRewards = new BN(sessionExtraRewardPayout.substring(2), 'hex');
+  const eraTotalRewards = new BN(sessionExtraRewardPayout.substring(2), "hex");
   return getAPR(miscFrozen, eraTotalRewards, eraTotalStake);
 };

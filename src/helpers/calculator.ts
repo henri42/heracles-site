@@ -34,6 +34,7 @@ export const apiDictionary = (query: string) =>
 export const queryRewardedEvents = (address: string) => gql`
   {
   events(
+    orderBy: [BLOCK_HEIGHT_ASC]
     filter: {
       and: [
         { call: { equalTo: "Rewarded" } }

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { initializeApi } from "ternoa-js";
+import { changeEndpoint } from "ternoa-js";
 
 import CalculatorIcon from "./assets/calculator.svg";
 import Footer from "./components/Footer/Footer";
@@ -13,11 +13,8 @@ const App = () => {
   const isCalculator = subdomain === "calculator";
 
   useEffect(() => {
-    const initApi = async () => {
-      await initializeApi("wss://mainnet.ternoa.network");
-    }
-    initApi()
-  }, [])
+    changeEndpoint("wss://mainnet.ternoa.network");
+  }, []);
 
   return (
     <div className={classes.root}>

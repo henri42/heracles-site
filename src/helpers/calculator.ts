@@ -93,6 +93,14 @@ export const getRewardsData = async (address: string): Promise<IRewardsData> => 
   return compoundSameDateRewards(data)
 }
 
+export const getEraActiveValiadtors = async (era: number): Promise<string[]> => {
+  const res = await query("staking", "erasRewardPoints", [era])
+  const { individual } = res.toJSON() as {
+    individual: object
+  }
+  return Object.keys(individual)
+}
+
 export const isNominatingValidator = async (address: string, validatorAddress: string): Promise<boolean> => {
   const res = await query("staking", "nominators", [address])
   if (res.toJSON() === null)
@@ -142,4 +150,15 @@ export const getStakerEraAPR = async (nominatorAddress: string, era: number): Pr
     (apr) => apr !== 0,
   )
   return APRs.reduce((a, b) => a + b, 0) / APRs.length
+}
+
+export const getValidatorEraAPR = async (validatorAddress: string, era: number): Promise<number> => {
+  const res = await query("staking", "erasStakers", [era, validatorAddress])
+  const { own, total } = res.toJSON() as unknown as EraValidatorStakersType
+  const apr = getAPR(
+    new BN(own.substring(2), "hex"),
+    new BN("6133000000000000000000"), // average daily reward value per validator: 6133 CAPS
+    new BN(total.substring(2), "hex"),
+  )
+  return Number(apr)
 }

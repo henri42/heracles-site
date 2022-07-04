@@ -2,22 +2,23 @@ import { useState } from "react"
 import dayjs from "dayjs"
 import localizedFormat from "dayjs/plugin/localizedFormat"
 dayjs.extend(localizedFormat)
+import { query } from "ternoa-js"
 
 import CalculatorIcon from "../../assets/calculator.svg"
 import Header from "../../components/Header/Header"
 import { HERACLES_NODE_ADDRESS } from "../../constants"
 import { getRewardsData, getStakerEraAPR, isNominatingValidator } from "../../helpers/calculator"
+import { IRewardsData } from "../../types/pallets"
 
 import classes from "./Calculator.module.scss"
-import { formatBalance, query } from "ternoa-js"
+import Chart from "../../components/Chart/Chart"
 
 const Calculator = () => {
   const [address, setAddress] = useState<string | undefined>(undefined)
   const [error, setError] = useState<React.ReactNode | string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [apr, setApr] = useState<number | undefined>(undefined)
-  const [firstTimestamp, setFirstTimestamp] = useState<string | undefined>(undefined)
-  const [formattedTotal, setFormattedTotal] = useState<string | undefined>(undefined)
+  const [rewards, setRewards] = useState<IRewardsData | undefined>(undefined)
   const [thanksMessage, setThanksMessage] = useState("If you like this calculator, support HERACLES as a nominator 💪")
 
   const reset = () => {
@@ -40,12 +41,10 @@ const Calculator = () => {
       try {
         const currentEra = Number((await query("staking", "currentEra")).toString())
         const apr = await getStakerEraAPR(address, currentEra)
-        const { firstTimestamp, total } = await getRewardsData(address)
-        const formattedTotalRewards = await formatBalance(total)
+        const rewardsData = await getRewardsData(address)
         getThanksMessage(address)
         setApr(apr)
-        setFirstTimestamp(firstTimestamp)
-        setFormattedTotal(formattedTotalRewards)
+        setRewards(rewardsData)
       } catch (error) {
         if (error instanceof Error && error.cause?.message === "Invalid address") {
           setError("Wait, this is not a valid Ternoa address 😡")
@@ -103,20 +102,25 @@ const Calculator = () => {
           </button>
           {!isLoading && error === "" && (
             <section className={classes.rewardsBox}>
-              {formattedTotal === "0" ? (
-                <p>Your nomination will be active in 1 era; try again tomorrow.</p>
-              ) : formattedTotal !== undefined ? (
+              {rewards && (
                 <>
-                  <p>You have earned</p>
-                  <p className={classes.rewards}>{`🏺 ${formattedTotal}`}</p>
-                  <p>since {dayjs(firstTimestamp).format("ll")}</p>
-                  {apr && (
-                    <p>
-                      Your estimated current APR: <span className={classes.apr}>{`~${apr}%`}</span>
-                    </p>
+                  {rewards.length === 0 ? (
+                    <p>Your nomination will be active in 1 era; try again tomorrow.</p>
+                  ) : (
+                    <>
+                      <p>You have earned</p>
+                      <p className={classes.rewards}>{`🏺 ${rewards[rewards.length - 1].formattedTotal}`}</p>
+                      <p>since {rewards[0].formattedTimestamp}</p>
+                      {apr && (
+                        <p>
+                          Your estimated current APR: <span className={classes.apr}>{`~${apr.toFixed(1)}%`}</span>
+                        </p>
+                      )}
+                      <Chart data={rewards} />
+                    </>
                   )}
                 </>
-              ) : null}
+              )}
               <p className={classes.thanks}>{thanksMessage}</p>
             </section>
           )}

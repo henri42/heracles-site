@@ -1,6 +1,9 @@
 import BN from "bn.js"
 import { gql, request } from "graphql-request"
-import { isValidAddress, query } from "ternoa-js/blockchain"
+import { formatBalance, isValidAddress, query } from "ternoa-js/blockchain"
+import dayjs from "dayjs"
+import localizedFormat from "dayjs/plugin/localizedFormat"
+dayjs.extend(localizedFormat)
 
 import { IEventsResponse } from "../types/dictionary"
 import { EraValidatorStakersType, IRewardsData, NominatorTargetsType } from "../types/pallets"
@@ -33,6 +36,30 @@ export const queryRewardedEvents = (address: string) => gql`
 }
 `
 
+const formatTimestamp = (timestamp: string): string => {
+  const [, time] = timestamp.split("T")
+  const hour = time.substring(0, 2)
+  if (Number(hour) < 13) {
+    return dayjs(timestamp).subtract(1, "day").format("ll")
+  }
+  return dayjs(timestamp).format("ll")
+}
+
+const compoundSameDateRewards = async (data: IRewardsData): Promise<IRewardsData> => {
+  const compoundData = data.reduce(async (a: any, current) => {
+    const prev = await a
+    const isSameDate = prev.length > 0 && prev[prev.length - 1].formattedTimestamp === current.formattedTimestamp
+    if (isSameDate) {
+      const rewards = prev[prev.length - 1].rewards.add(current.rewards)
+      const formattedRewards = await formatBalance(rewards)
+      return [...prev.slice(0, prev.length - 1), { ...current, formattedRewards, rewards }]
+    }
+    return [...prev, current]
+  }, [])
+
+  return compoundData
+}
+
 export const getRewardsData = async (address: string): Promise<IRewardsData> => {
   if (!isValidAddress(address))
     throw new Error("Invalid Ternoa address", {
@@ -40,18 +67,30 @@ export const getRewardsData = async (address: string): Promise<IRewardsData> => 
     })
 
   const { events }: IEventsResponse = await apiDictionary(queryRewardedEvents(address))
-
   const { nodes, totalCount } = events
-  if (totalCount === 0) return { firstTimestamp: "no date", total: new BN(0) }
+  if (totalCount === 0) return []
 
-  const firstTimestamp = nodes[0].block.timestamp
-  let counter = new BN(0)
-  nodes.forEach(({ argsValue }) => (counter = counter.add(new BN(argsValue[1]))))
+  let totalBN = new BN(0)
+  const totals: BN[] = []
+  nodes.forEach(({ argsValue }) => {
+    totalBN = totalBN.add(new BN(argsValue[1]))
+    totals.push(totalBN)
+  })
 
-  return {
-    firstTimestamp,
-    total: counter,
-  }
+  const data = await Promise.all(
+    nodes.map(async ({ argsValue, block }, idx) => {
+      const { timestamp } = block
+      const rewards = new BN(argsValue[1])
+      const formattedTimestamp = idx === 0 ? dayjs(timestamp).format("LL") : formatTimestamp(timestamp).split(",")[0]
+      const formattedRewards = await formatBalance(rewards)
+      const formattedTotal = await formatBalance(totalBN)
+      const numberedTotal = Number(
+        (await formatBalance(totals[idx], { forceUnit: "-", withUnit: false })).split(",").join(""),
+      )
+      return { formattedRewards, formattedTimestamp, formattedTotal, numberedTotal, rewards, timestamp }
+    }),
+  )
+  return compoundSameDateRewards(data)
 }
 
 export const isNominatingValidator = async (address: string, validatorAddress: string): Promise<boolean> => {

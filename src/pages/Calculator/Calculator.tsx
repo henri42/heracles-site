@@ -55,7 +55,7 @@ const Calculator = () => {
         setIsLoading(false)
       } else {
         try {
-          const currentEra = Number((await query("staking", "currentEra")).toString())
+          const { index: currentEra } = (await query("staking", "activeEra")).toJSON() as { index: number }
           const eraActiveValidators = await getEraActiveValiadtors(currentEra)
           const isActiveValidatorAddress = eraActiveValidators.includes(address)
           const apr = isActiveValidatorAddress

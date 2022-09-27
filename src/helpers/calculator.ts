@@ -1,6 +1,6 @@
 import BN from "bn.js"
 import { gql, request } from "graphql-request"
-import { formatBalance, isValidAddress, query } from "ternoa-js/blockchain"
+import { balanceToNumber, isValidAddress, query } from "ternoa-js/blockchain"
 import dayjs from "dayjs"
 import localizedFormat from "dayjs/plugin/localizedFormat"
 dayjs.extend(localizedFormat)
@@ -51,7 +51,7 @@ const compoundSameDateRewards = async (data: IRewardsData): Promise<IRewardsData
     const isSameDate = prev.length > 0 && prev[prev.length - 1].formattedTimestamp === current.formattedTimestamp
     if (isSameDate) {
       const rewards = prev[prev.length - 1].rewards.add(current.rewards)
-      const formattedRewards = await formatBalance(rewards)
+      const formattedRewards = balanceToNumber(rewards)
       return [...prev.slice(0, prev.length - 1), { ...current, formattedRewards, rewards }]
     }
     return [...prev, current]
@@ -79,13 +79,13 @@ export const getRewardsData = async (address: string): Promise<IRewardsData> => 
 
   const data = await Promise.all(
     nodes.map(async ({ argsValue, block }, idx) => {
-      const { timestamp } = block
-      const rewards = new BN(argsValue[1])
+      const { timestamp }: { timestamp: string } = block
+      const rewards: BN = new BN(argsValue[1])
       const formattedTimestamp = idx === 0 ? dayjs(timestamp).format("LL") : formatTimestamp(timestamp).split(",")[0]
-      const formattedRewards = await formatBalance(rewards)
-      const formattedTotal = await formatBalance(totalBN)
+      const formattedRewards = balanceToNumber(rewards)
+      const formattedTotal = balanceToNumber(totalBN)
       const numberedTotal = Number(
-        (await formatBalance(totals[idx], { forceUnit: "-", withUnit: false })).split(",").join(""),
+        balanceToNumber(totals[idx], { forceUnit: "-", withUnit: false }).split(",").join(""),
       )
       return { formattedRewards, formattedTimestamp, formattedTotal, numberedTotal, rewards, timestamp }
     }),

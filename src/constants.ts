@@ -1,4 +1,5 @@
 export const HERACLES_NODE_ADDRESS = "5FWuM8Q3DRBAzu2PeqfmXqwdnegk8yiiMLXtZLB3dqJjomG8"
+export const HERACLES_02_NODE_ADDRESS = "5DtqncDS1BCTjneX3kskvb8NznQT4KFcYYh9Q6TG7U699R3a"
 export const JM_NODES_ADDRESSES = [
   "5Fx32u4zYzZUjC2fam2zFmJYPkt3VLcyDKBui26Dtp88Lj1M",
   "5Ev9dyaVvwGxFb85sdFoBgJ22bQs6QcghHmTqjP52c1zDaWV",

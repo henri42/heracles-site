@@ -8,7 +8,8 @@ dayjs.extend(localizedFormat)
 import { IEventsResponse } from "../types/dictionary"
 import { EraValidatorStakersType, IRewardsData, NominatorTargetsType } from "../types/pallets"
 
-export const apiDictionary = (query: string) => request("https://dictionary-mainnet.ternoa.dev/", query)
+export const apiDictionary = (query: string) =>
+  request("https://app-901f34e1-2c9c-4d49-b169-54b76e20829e.cleverapps.io/", query)
 
 export const queryRewardedEvents = (address: string) => gql`
   {

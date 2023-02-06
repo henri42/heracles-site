@@ -42,7 +42,7 @@ const Home = () => (
             <h4 className={classes.nodeName}>1. Heracles against the Nemean Lion</h4>
             <p className={classes.nodeDescription}>Ternoa Staking</p>
             <div className={classes.nodeData}>
-              <img className={classes.picture} src={NemeanLion} alt="Lion illustration" width={320} height={131} />
+              <img className={classes.picture} src={NemeanLion} alt="Lion illustration" width={280} height={111} />
               <Stake address={HERACLES_NODE_ADDRESS} />
             </div>
           </div>
@@ -51,7 +51,7 @@ const Home = () => (
             <h4 className={classes.nodeName}>2. Heracles against the Lernaean Hydra</h4>
             <p className={classes.nodeDescription}>Ternoa Staking</p>
             <div className={classes.nodeData}>
-              <img className={classes.picture} src={Hydra} alt="Hydra illustration" width={460} height={200} />
+              <img className={classes.picture} src={Hydra} alt="Hydra illustration" width={310} height={161} />
               <Stake address={HERACLES_02_NODE_ADDRESS} />
             </div>
           </div>

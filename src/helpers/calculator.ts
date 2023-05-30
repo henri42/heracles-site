@@ -5,16 +5,16 @@ import dayjs from "dayjs"
 import localizedFormat from "dayjs/plugin/localizedFormat"
 dayjs.extend(localizedFormat)
 
-import { IEventsResponse } from "../types/dictionary"
+import { IEvent, IEventsResponse } from "../types/dictionary"
 import { EraValidatorStakersType, IRewardsData, NominatorTargetsType } from "../types/pallets"
 
-export const apiDictionary = (query: string) =>
-  request("https://app-901f34e1-2c9c-4d49-b169-54b76e20829e.cleverapps.io/", query)
+export const apiDictionary = (query: string) => request("https://dictionary-mainnet.ternoa.dev/", query)
 
-export const queryRewardedEvents = (address: string) => gql`
+export const queryRewardedEvents = (address: string, offset: number) => gql`
   {
   events(
     orderBy: [BLOCK_HEIGHT_ASC]
+    offset: ${offset}
     filter: {
       and: [
         { call: { equalTo: "Rewarded" } }
@@ -67,19 +67,29 @@ export const getRewardsData = async (address: string): Promise<IRewardsData> => 
       cause: new Error("Invalid address"),
     })
 
-  const { events }: IEventsResponse = await apiDictionary(queryRewardedEvents(address))
-  const { nodes, totalCount } = events
-  if (totalCount === 0) return []
+  let rawData: IEvent[] = []
+  let currentOffset = 0
+  let maxOffset
+  while (maxOffset === undefined || currentOffset < maxOffset) {
+    const { events } = (await apiDictionary(queryRewardedEvents(address, currentOffset))) as IEventsResponse
+    const { nodes, totalCount } = events
+    if (maxOffset === undefined) {
+      if (totalCount === 0) return []
+      maxOffset = totalCount
+    }
+    rawData = rawData.concat(nodes)
+    currentOffset += 100
+  }
 
   let totalBN = new BN(0)
   const totals: BN[] = []
-  nodes.forEach(({ argsValue }) => {
+  rawData.forEach(({ argsValue }) => {
     totalBN = totalBN.add(new BN(argsValue[1]))
     totals.push(totalBN)
   })
 
   const data = await Promise.all(
-    nodes.map(async ({ argsValue, block }, idx) => {
+    rawData.map(async ({ argsValue, block }, idx) => {
       const { timestamp }: { timestamp: string } = block
       const rewards: BN = new BN(argsValue[1])
       const formattedTimestamp = idx === 0 ? dayjs(timestamp).format("LL") : formatTimestamp(timestamp).split(",")[0]
@@ -118,12 +128,9 @@ export const isNominatingValidator = async (address: string, validatorAddress: s
 const getAPR = (balanceBond: BN, totalDailyRewards: BN, totalStake: BN) =>
   balanceBond.mul(totalDailyRewards).mul(new BN(365)).div(totalStake).mul(new BN(100)).div(balanceBond).toString()
 
-const getStakerTargets = async (address: string): Promise<string[]> => {
+const getStakerTargets = async (address: string): Promise<string[] | null> => {
   const res = await query("staking", "nominators", [address])
-  if (res.toJSON() === null)
-    throw new Error("Invalid nominator address", {
-      cause: new Error("Invalid nominator address"),
-    })
+  if (res.toJSON() === null) return null
   const { targets } = res.toJSON() as NominatorTargetsType
   return targets
 }
@@ -145,8 +152,9 @@ const getStakerTargetEraAPR = async (
   return Number(apr)
 }
 
-export const getStakerEraAPR = async (nominatorAddress: string, era: number): Promise<number> => {
+export const getStakerEraAPR = async (nominatorAddress: string, era: number): Promise<number | undefined> => {
   const targets = await getStakerTargets(nominatorAddress)
+  if (targets === null) return undefined
   const APRs = (await Promise.all(targets.map(async (x) => getStakerTargetEraAPR(nominatorAddress, x, era)))).filter(
     (apr) => apr !== 0,
   )
